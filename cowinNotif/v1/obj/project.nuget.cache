@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "FjWuBh6gi1QSU5cFfhwEwR6HVjHar8NTbAbDWkQmxUNkn9kIdcbf1g9FpRjl3Y6eI8tCPQzvsQNYOqpqt0XrhQ==",
+  "success": true,
+  "projectFilePath": "F:\\asivasree\\Programming\\cowinNotif\\v1\\v1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\HP\\.nuget\\packages\\microsoft.extensions.configuration\\5.0.0\\microsoft.extensions.configuration.5.0.0.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\5.0.0\\microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
