@@ -8,12 +8,14 @@ namespace cowinNotification
     class Program
     {
         static readonly HttpClient client = new HttpClient();
-        const int retryTimeInSeconds = 20;
+
+        const int retryTimeInSeconds = 5;
         const int minimumEligibleAge = 18;
         const int districtCode = 307; //307 ernakulam, 296 tvm
 
         public static async Task Main(string[] args)
         {
+            client.Timeout = TimeSpan.FromMinutes(10);
             Console.WriteLine("***********************");
             Console.WriteLine($"checking vaccine availability for center code {districtCode} for age {minimumEligibleAge}");
             Console.WriteLine("You will hear continuous beeps when vaccine slot is available");
@@ -69,22 +71,27 @@ namespace cowinNotification
             Boolean status = false;
 
             //convert to json object
-            cowinNotification.MasterData masterData = MasterData.FromJson(inputData);
-
-            var centerData = masterData.Centers;
-
-            foreach (var singleCenter in centerData)
+            if (inputData != null)
             {
-                var center = singleCenter.Name;
-                foreach (var singleSession in singleCenter.Sessions)
+                cowinNotification.MasterData masterData = MasterData.FromJson(inputData);
+
+                var centerData = masterData.Centers;
+
+                foreach (var singleCenter in centerData)
                 {
-                    if (singleSession.MinAgeLimit == minimumEligibleAge && singleSession.AvailableCapacity > 0)
+                    var center = singleCenter.Name;
+                    foreach (var singleSession in singleCenter.Sessions)
                     {
-                        Console.WriteLine("**********please book************");
-                        Console.WriteLine($"*******available on {singleSession.Date} at {center} for age: {singleSession.MinAgeLimit}, available: {singleSession.AvailableCapacity} *********");
-                        status = true;
+                        if (singleSession.MinAgeLimit == minimumEligibleAge && singleSession.AvailableCapacity > 0 && singleSession.AvailableCapacityDose1 > 0)
+                        {
+                            Console.WriteLine("**********please book************");
+                            Console.WriteLine($"******* available on {singleSession.Date} at {center} for age: {singleSession.MinAgeLimit} *********");
+                            Console.WriteLine($"******** available, dose 1: {singleSession.AvailableCapacityDose1}, dose 2: {singleSession.AvailableCapacityDose2} *********");
+                            status = true;
+                        }
                     }
                 }
+                return status;
             }
             return status;
         }
@@ -93,7 +100,7 @@ namespace cowinNotification
         {
             int frequency = 600;
             int timeInterval = 500; //milliseconds
-            int beepTimes = 50;
+            int beepTimes = 20;
 
             for (int beepCounter = 0; beepCounter < beepTimes; beepCounter++)
             {
