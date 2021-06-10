@@ -49,7 +49,7 @@ namespace cowinNotification
                 DateTime today = DateTime.Today;
 
                 string dateToday = today.ToString("d");
-                string url = $"https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?district_id={districtCode}&date={dateToday}";
+                string url = $"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={districtCode}&date={dateToday}";
 
                 HttpResponseMessage response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
